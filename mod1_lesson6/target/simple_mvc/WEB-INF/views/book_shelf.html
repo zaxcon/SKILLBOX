@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My book shelf</title>
+    <style>
+        #root_container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #books {
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin: 25px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<div id="root_container">
+    <a href="/upload">Ulpoad file</a>
+    <a href="/download">Download file</a>
+    <form method="post" th:action="@{/books/save}" th:object="${book}">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="author" th:field="*{author}">
+                    <div style="color: red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">AuthorError</div>
+                </td>
+                <td>
+                    <input type="text" placeholder="book_title" th:field="*{title}">
+                    <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">TitleError</div>
+                </td>
+                <td>
+                    <input type="text" placeholder="size (pages)" th:field="*{size}" id="size"/>
+                    <div style="color: red" th:if="${#fields.hasErrors('size')}" th:errors="*{size}">SizeError</div>
+                </td>
+                <td>
+                    <input type="submit" value="save">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <form method="post" th:action="@{/books/search}" th:object="${book}">
+        <table>
+            <tr>
+               <td>
+                <input type="text" placeholder="id" th:field="*{id}">
+                </td>
+                <td>
+                    <input type="text" placeholder="author" th:field="*{author}">
+                </td>
+                <td>
+                    <input type="text" placeholder="book_title" th:field="*{title}">
+                </td>
+                <td>
+                    <input type="text" placeholder="size (pages)" th:field="*{size}">
+                </td>
+                <td>
+                    <input type="submit" value="search">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <form method="post" th:action="@{/books/removeselected}">
+    <table id="books">
+        <tr>
+            <th>checked</th>
+            <th>id</th>
+            <th>author</th>
+            <th>title</th>
+            <th>size</th>
+        </tr>
+        <tr th:each="book : ${bookList}">
+            <td ><input type="checkbox"  id ="checkbox" th:name="checked"  th:value="${book.id}"></td>
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.size}"></td>
+        </tr>
+    </table>
+        <input type="button" onclick="checkAll()" value="check all">
+        <input type="submit" value="remove selected">
+    </form>
+</div>
+</body>
+<script type="text/javascript">
+
+
+
+    function checkAll() {
+
+        var inputs = document.querySelectorAll('#checkbox');
+
+        for (var i = 0; i < inputs.length; i++) {
+
+            inputs[i].checked = true;
+
+        }
+
+    }
+
+    window.onload = function() {
+
+        window.addEventListener('load', checkAll, false);
+
+    }
+
+</script>
+</html>
