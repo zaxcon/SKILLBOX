@@ -76,4 +76,18 @@ public class BookShelfController {
         return "redirect:/books/shelf";
 
     }
+    @PostMapping("/removefiltered")
+    public String removeFiltereddBooks(Book book) {
+
+        if (book.isEmpty())
+        {
+            logger.error("Search query is empty: ");
+
+        }else {
+            logger.error("Try delete book with filter");
+            bookService.removeFiltered(book);
+
+        }
+        return "redirect:/books/shelf";
+    }
 }

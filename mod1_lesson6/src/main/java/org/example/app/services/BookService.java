@@ -60,4 +60,12 @@ public class BookService {
     }
         return predicateBook;
     }
+
+    public void removeFiltered(Book book) {
+       List<Book> books =  searchBooks(book);
+       for (Book bookInList:books)
+       {
+           removeBookById(bookInList.getId());
+       }
+    }
 }

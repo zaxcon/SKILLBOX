@@ -31,8 +31,8 @@
 </head>
 <body>
 <div id="root_container">
-    <a href="/upload">Ulpoad file</a>
-    <a href="/download">Download file</a>
+    <a href="../upload">Ulpoad file</a>
+    <a href="../download">Download file</a>
     <form method="post" th:action="@{/books/save}" th:object="${book}">
         <table>
             <tr>
@@ -76,6 +76,29 @@
             </tr>
         </table>
     </form>
+
+    <form method="post" th:action="@{/books/removefiltered}" th:object="${book}">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="id" th:field="*{id}">
+                </td>
+                <td>
+                    <input type="text" placeholder="author" th:field="*{author}">
+                </td>
+                <td>
+                    <input type="text" placeholder="book_title" th:field="*{title}">
+                </td>
+                <td>
+                    <input type="text" placeholder="size (pages)" th:field="*{size}">
+                </td>
+                <td>
+                    <input type="submit" value="remove">
+                </td>
+            </tr>
+        </table>
+    </form>
+
 
     <form method="post" th:action="@{/books/removeselected}">
     <table id="books">
