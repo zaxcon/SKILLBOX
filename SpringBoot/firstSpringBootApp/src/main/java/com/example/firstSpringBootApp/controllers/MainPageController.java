@@ -20,8 +20,9 @@ public class MainPageController {
     @GetMapping("/main")
     public String mainPage(Model model)
     {
-        model.addAttribute("booksData", bookService.getBooksdata());
-
+        model.addAttribute("recommendedBooksData", bookService.getRecommendedBooksData());
+        model.addAttribute("recentBooksData", bookService.getRecentBooksData());
+        model.addAttribute("popularBooksData", bookService.getPopularBooksData());
         return "index";
     }
     @GetMapping("/genres")
@@ -30,6 +31,7 @@ public class MainPageController {
         return "genres/index";
     }
     @GetMapping("/authors")
+
     public String authorsPage(Model model)
     {
         model.addAttribute("authors",authorsService.getAuthors());

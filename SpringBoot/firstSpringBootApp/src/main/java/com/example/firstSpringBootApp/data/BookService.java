@@ -21,7 +21,7 @@ public class BookService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Book> getBooksdata() {
+    public List<Book> getRecommendedBooksData() {
         List<Book> books = jdbcTemplate.query("SELECT BOOKS.id,books.title,books.priceold, books.price, authors.id as author_id, authors.name, authors.surname  FROM BOOKS join authors on authors.id=books.author_id", (ResultSet rs, int rowNum) -> {
             Book book = new Book();
             Author author = new Author();
@@ -40,5 +40,16 @@ public class BookService {
 
     }
 
+    public List<Book> getRecentBooksData()
+    {
+        //mock
+        return getRecommendedBooksData();
+    }
 
+
+    public List<Book> getPopularBooksData()
+    {
+        //mock
+        return getRecommendedBooksData();
+    }
 }
