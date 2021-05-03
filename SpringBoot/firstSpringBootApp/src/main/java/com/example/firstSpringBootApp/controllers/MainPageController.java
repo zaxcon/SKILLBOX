@@ -1,5 +1,6 @@
 package com.example.firstSpringBootApp.controllers;
 
+import com.example.firstSpringBootApp.data.AuthorsService;
 import com.example.firstSpringBootApp.data.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainPageController {
     @Autowired
     private BookService bookService;
+    @Autowired
+    private AuthorsService authorsService;
 
     @GetMapping("/main")
     public String mainPage(Model model)
@@ -29,7 +32,7 @@ public class MainPageController {
     @GetMapping("/authors")
     public String authorsPage(Model model)
     {
-        model.addAttribute("authors",bookService.getAuthors());
+        model.addAttribute("authors",authorsService.getAuthors());
         return "authors/index";
     }
 }
