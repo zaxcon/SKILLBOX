@@ -14,30 +14,16 @@ import java.util.Map;
 
 @Service
 public class BookService {
-    private JdbcTemplate jdbcTemplate;
 
+
+    private BookRepository bookRepository;
     @Autowired
-    public BookService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     public List<Book> getRecommendedBooksData() {
-        List<Book> books = jdbcTemplate.query("SELECT BOOKS.id,books.title,books.priceold, books.price, authors.id as author_id, authors.name, authors.surname  FROM BOOKS join authors on authors.id=books.author_id", (ResultSet rs, int rowNum) -> {
-            Book book = new Book();
-            Author author = new Author();
-            author.setId(rs.getInt("author_id"));
-            author.setName(rs.getString("name"));
-            author.setSurname(rs.getString("surname"));
-            book.setId(rs.getInt("id"));
-            book.setAuthor(author);
-            book.setTitle(rs.getString("title"));
-            book.setPrice(rs.getString("price"));
-            book.setPriceOld(rs.getString("priceOld"));
-            return book;
-        });
-
-        return new ArrayList<>(books);
-
+        return bookRepository.findAll();
     }
 
     public List<Book> getRecentBooksData()

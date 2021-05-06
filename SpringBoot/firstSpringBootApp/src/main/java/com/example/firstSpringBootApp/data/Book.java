@@ -1,7 +1,16 @@
 package com.example.firstSpringBootApp.data;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
     private  String title;
 

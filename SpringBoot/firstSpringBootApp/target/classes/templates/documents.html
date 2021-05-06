@@ -1,0 +1,42 @@
+
+<!--END-->
+<!--END--><!DOCTYPE html><!--[if IE 7]>
+<html class="ie7" lang="ru">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie8" lang="ru">
+<![endif]-->
+<!--[if IE 9]>
+<html class="ie9" lang="ru">
+<![endif]-->
+<!--[if gt IE 9]><!--> <html lang="ru"> <!--<![endif]-->
+<head th:replace="~{fragments/head_fragment::headFragment}">
+
+</head>
+<body class="Site">
+  <!--if lt IE 8
+  p.error-browser
+      | Ваш браузер&nbsp;
+      em устарел!&nbsp;
+      a(href="http://browsehappy.com/") Выберите новую версию
+          +s
+          | браузера здесь&nbsp;
+      | для правильного отображения сайта.
+  -->
+  <header th:replace="~{fragments/header_fragment::headerFragment}">
+  </header>
+  <div class="Middle">
+    <div class="wrap">
+      <main class="Middle-main">
+<!--      <br>-->
+<!--      <br>-->
+  <h2 class="Section-title">Documents should be here
+  </h2>
+      </main>
+    </div>
+  </div>
+  <footer th:replace="~{fragments/footer_gragment::footerFragment}">
+
+  </footer>
+  <script src="/assets/plg/jQuery/jquery-3.5.1.min.js"></script>
+</body></html>
