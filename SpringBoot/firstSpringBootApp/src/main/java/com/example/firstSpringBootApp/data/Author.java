@@ -8,12 +8,14 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String photo;
+    private String slug;
     private String name;
-    private String surname;
+    private String description;
 
     @Override
     public String toString() {
-        return name+" "+surname;
+        return name;
     }
 
     public int getId() {
@@ -32,14 +34,28 @@ public class Author {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
+    public String getSlug() {
+        return slug;
+    }
 
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
 

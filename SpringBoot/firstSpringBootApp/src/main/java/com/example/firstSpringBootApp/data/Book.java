@@ -2,6 +2,7 @@ package com.example.firstSpringBootApp.data;
 
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "books")
@@ -9,20 +10,86 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private Date pubDate;
+    private boolean is_bestseller;
+    private String slug;
+    private String image;
+    private String description;
+
+    private Integer price;
+    private Integer discount;
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
     private  String title;
 
+
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", author='" + author.toString() + '\'' +
+                ", pubDate=" + pubDate +
+                ", is_bestseller=" + is_bestseller +
+                ", slug='" + slug + '\'' +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", discount=" + discount +
+                ", author=" + author +
                 ", title='" + title + '\'' +
-                ", priceOld='" + priceOld + '\'' +
-                ", price='" + price + '\'' +
                 '}';
+    }
+
+    public Date getPubDate() {
+        return pubDate;
+    }
+
+    public void setPubDate(Date pubDate) {
+        this.pubDate = pubDate;
+    }
+
+    public boolean isIs_bestseller() {
+        return is_bestseller;
+    }
+
+    public void setIs_bestseller(boolean is_bestseller) {
+        this.is_bestseller = is_bestseller;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
     }
 
     public Integer getId() {
@@ -49,22 +116,10 @@ public class Book {
         this.title = title;
     }
 
-    public String getPriceOld() {
-        return priceOld;
-    }
 
-    public void setPriceOld(String priceOld) {
-        this.priceOld = priceOld;
-    }
-
-    public String getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
 
-    private String priceOld;
-    private String price;
 }

@@ -18,6 +18,6 @@ public class AuthorsService {
     }
 
     public Map<Character, List<Author>> getAuthors() {
-        return  authorRepository.findAll().stream().collect(Collectors.groupingBy(c->c.getSurname().charAt(0)));
+        return null;// authorRepository.findAll().stream().collect(Collectors.groupingBy(c->c.getSurname().charAt(0)));
     }
 }
