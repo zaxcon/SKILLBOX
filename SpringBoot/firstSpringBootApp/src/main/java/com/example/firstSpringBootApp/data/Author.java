@@ -1,6 +1,8 @@
 package com.example.firstSpringBootApp.data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "authors")
@@ -12,6 +14,8 @@ public class Author {
     private String slug;
     private String name;
     private String description;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "key.author")
+    private Set<BookToAuthor> bookToAuthorSet = new HashSet<BookToAuthor>();
 
     @Override
     public String toString() {

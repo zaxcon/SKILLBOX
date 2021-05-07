@@ -3,6 +3,8 @@ package com.example.firstSpringBootApp.data;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -18,11 +20,18 @@ public class Book {
 
     private Integer price;
     private Integer discount;
-    @ManyToOne
-    @JoinColumn(name = "author_id", referencedColumnName = "id")
-    private Author author;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "key.book")
+    private Set<BookToAuthor> bookToAuthorSet = new HashSet<BookToAuthor>();
     private  String title;
 
+    public Set<BookToAuthor> getBookToAuthorSet() {
+        return bookToAuthorSet;
+    }
+
+    public void setBookToAuthorSet(Set<BookToAuthor> bookToAuthorSet) {
+        this.bookToAuthorSet = bookToAuthorSet;
+    }
 
     @Override
     public String toString() {
@@ -35,7 +44,7 @@ public class Book {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", discount=" + discount +
-                ", author=" + author +
+//                ", author=" + author +
                 ", title='" + title + '\'' +
                 '}';
     }
@@ -100,13 +109,7 @@ public class Book {
         this.id = id;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
 
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
 
     public String getTitle() {
         return title;
