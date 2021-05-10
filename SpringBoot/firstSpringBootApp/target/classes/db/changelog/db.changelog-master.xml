@@ -7,6 +7,8 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-<include file="db/changelog/liquibase-outputChangeLogInit.xml"/>
+<include file="db/changelog/liquibase-outputChangeLog_init.xml"/>
  <include file="db/changelog/liquibase-outputChangeLog_books_authors_changed.xml"/>
+ <include file="db/changelog/liquibase-outputChangeLog_book2author_added.xml"/>
+ <include file="db/changelog/liquibase-outputChangeLog_user_review_genres_added.xml"/>
 </databaseChangeLog>

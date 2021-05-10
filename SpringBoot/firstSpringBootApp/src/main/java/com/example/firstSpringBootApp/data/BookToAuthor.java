@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "book2author")
-public class BookToAuthor {
+public class BookToAuthor implements Comparable<BookToAuthor>{
 
     private BookAuthorId key=new BookAuthorId();
     private  Integer sortIndex;
@@ -40,5 +40,11 @@ public class BookToAuthor {
     @Override
     public int hashCode() {
         return Objects.hash(key, sortIndex);
+    }
+
+
+    @Override
+    public int compareTo(BookToAuthor o) {
+        return Integer.compare(sortIndex,o.sortIndex);
     }
 }

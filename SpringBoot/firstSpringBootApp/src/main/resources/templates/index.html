@@ -42,7 +42,7 @@
                     <div class="Card-content">
                       <strong class="Card-title"><a href="/books/slug.html" th:text="${book.title}">Техника</a>
                       </strong>
-                      <div class="Card-description" th:text="${book.bookToAuthorSet[0].getKey().getAuthor()}">Кондратенко Валерий Петрович
+                      <div class="Card-description" th:text="${book.getAuthors()}">Кондратенко Валерий Петрович
                       </div>
                       <div class="Card-cost"><span class="Card-priceOld" th:text="${book.price}">₽300.00</span><span class="Card-price" th:text="${book.price-book.price*book.discount/100}">₽190.00</span>
                       </div>
@@ -72,7 +72,7 @@
                     <div class="Card-content">
                       <strong class="Card-title"><a href="/books/slug.html" th:text="${book.title}">Техника</a>
                       </strong>
-                      <div class="Card-description" th:text="${book.author}">Кондратенко Валерий Петрович
+                      <div class="Card-description" th:text="${book.getAuthors()}">Кондратенко Валерий Петрович
                       </div>
                       <div class="Card-cost"><span class="Card-priceOld" th:text="${book.price}">₽300.00</span><span class="Card-price" th:text="${book.price-book.price*book.discount/100}">₽190.00</span>
                       </div>
@@ -102,7 +102,7 @@
                     <div class="Card-content">
                       <strong class="Card-title"><a href="/books/slug.html" th:text="${book.title}">Техника</a>
                       </strong>
-                      <div class="Card-description" th:text="${book.author}">Кондратенко Валерий Петрович
+                      <div class="Card-description" th:text="${book.getAuthors()}">Кондратенко Валерий Петрович
                       </div>
                       <div class="Card-cost"><span class="Card-priceOld" th:text="${book.price}">₽300.00</span><span class="Card-price" th:text="${book.price-book.price*book.discount/100}">₽190.00</span>
                       </div>

@@ -4,7 +4,9 @@ package com.example.firstSpringBootApp.data;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "books")
@@ -21,6 +23,9 @@ public class Book {
     private Integer price;
     private Integer discount;
 
+    @OneToMany( mappedBy = "book")
+    private List<BookReview> bookReviewList;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "key.book")
     private Set<BookToAuthor> bookToAuthorSet = new HashSet<BookToAuthor>();
     private  String title;
@@ -33,6 +38,15 @@ public class Book {
         this.bookToAuthorSet = bookToAuthorSet;
     }
 
+    public String getAuthors()
+    {
+        return  bookToAuthorSet.stream().sorted()
+                .map(bookToAuthor -> {
+                    return bookToAuthor.getKey().getAuthor().toString();
+                })
+                .collect(Collectors.joining(", "));
+
+    }
     @Override
     public String toString() {
         return "Book{" +
@@ -44,7 +58,6 @@ public class Book {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", discount=" + discount +
-//                ", author=" + author +
                 ", title='" + title + '\'' +
                 '}';
     }

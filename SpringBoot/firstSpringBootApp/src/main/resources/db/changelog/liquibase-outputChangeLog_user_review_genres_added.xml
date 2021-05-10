@@ -1,0 +1,152 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="Наш (generated)" id="1620665303195-1">
+        <createTable tableName="authors">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="photo" type="VARCHAR(255)"/>
+            <column name="slug" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-2">
+        <createTable tableName="book2author">
+            <column name="sort_index" type="INT"/>
+            <column name="author_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="book_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-3">
+        <createTable tableName="book2genre">
+            <column name="genre_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-4">
+        <createTable tableName="book_review">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="text" type="VARCHAR(255)"/>
+            <column name="time" type="date"/>
+            <column name="book_id" type="INT"/>
+            <column name="user_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-5">
+        <createTable tableName="book_review_like">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="time" type="date"/>
+            <column name="value" type="INT"/>
+            <column name="book_review_like_id" type="INT"/>
+            <column name="user_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-6">
+        <createTable tableName="books">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="discount" type="INT"/>
+            <column name="image" type="VARCHAR(255)"/>
+            <column name="is_bestseller" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="INT"/>
+            <column name="pub_date" type="date"/>
+            <column name="slug" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-7">
+        <createTable tableName="genre">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="parent_id" type="INT"/>
+            <column name="slug" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-8">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="balance" type="INT"/>
+            <column name="hash" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="reg_time" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-9">
+        <addPrimaryKey columnNames="book_id, genre_id" constraintName="PRIMARY" tableName="book2genre"/>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-10">
+        <createIndex indexName="FK8joa8tens71ol1st4fd9hssph" tableName="book2author">
+            <column name="book_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-11">
+        <createIndex indexName="FKbh4qufg71ntnx2v11gy8ldc5f" tableName="book_review_like">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-12">
+        <createIndex indexName="FKfy3eqoup5dauq1gigv26chieo" tableName="book_review_like">
+            <column name="book_review_like_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-13">
+        <createIndex indexName="FKgme5o68sylsmw5hw0ys2x8iw8" tableName="book_review">
+            <column name="book_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-14">
+        <createIndex indexName="FKkdc8kcprnkl4ygg2f0v9588wi" tableName="book2genre">
+            <column name="genre_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-15">
+        <createIndex indexName="FKntncp0b191bex8jkm3vy3l13x" tableName="book_review">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-16">
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="book2author" constraintName="FK3hyom3yo5q6nfo9ytqofqil37" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="authors" validate="true"/>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-17">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book2author" constraintName="FK8joa8tens71ol1st4fd9hssph" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="books" validate="true"/>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-18">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="book_review_like" constraintName="FKbh4qufg71ntnx2v11gy8ldc5f" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-19">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book2genre" constraintName="FKceqa97sssb6d5xg7n8jtt5gqb" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="books" validate="true"/>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-20">
+        <addForeignKeyConstraint baseColumnNames="book_review_like_id" baseTableName="book_review_like" constraintName="FKfy3eqoup5dauq1gigv26chieo" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="book_review_like" validate="true"/>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-21">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book_review" constraintName="FKgme5o68sylsmw5hw0ys2x8iw8" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="books" validate="true"/>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-22">
+        <addForeignKeyConstraint baseColumnNames="genre_id" baseTableName="book2genre" constraintName="FKkdc8kcprnkl4ygg2f0v9588wi" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="genre" validate="true"/>
+    </changeSet>
+    <changeSet author="Наш (generated)" id="1620665303195-23">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="book_review" constraintName="FKntncp0b191bex8jkm3vy3l13x" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
