@@ -1,5 +1,7 @@
-package com.example.firstSpringBootApp.data;
+package com.example.firstSpringBootApp.data.services;
 
+import com.example.firstSpringBootApp.data.Author;
+import com.example.firstSpringBootApp.data.repo.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class AuthorsService {
 
-    private final  AuthorRepository  authorRepository;
+    private final AuthorRepository authorRepository;
 
     @Autowired
     public AuthorsService(AuthorRepository authorRepository) {

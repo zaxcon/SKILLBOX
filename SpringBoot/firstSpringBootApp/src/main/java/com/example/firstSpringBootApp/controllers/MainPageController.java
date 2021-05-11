@@ -1,7 +1,7 @@
 package com.example.firstSpringBootApp.controllers;
 
-import com.example.firstSpringBootApp.data.AuthorsService;
-import com.example.firstSpringBootApp.data.BookService;
+import com.example.firstSpringBootApp.data.services.AuthorsService;
+import com.example.firstSpringBootApp.data.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
