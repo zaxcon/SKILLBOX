@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -62,10 +66,33 @@ public class BookService {
     }
 
     public Page<Book> getPageOfRecommendedBooks(Integer offset, Integer limit){
+        Book book=bookRepository.findBooksById(1);
+        book.printTags();
         Pageable nextPage = PageRequest.of(offset,limit);
         return bookRepository.findAll(nextPage);
     }
-
+    public Page<Book> getPageOfPopularBooks(Integer offset, Integer limit){
+        Pageable nextPage = PageRequest.of(offset,limit);
+        return bookRepository.findAll(nextPage);
+    }
+    public Page<Book> getPageOfRecentBooks(String from, String to,Integer offset, Integer limit)  {
+        Pageable nextPage = PageRequest.of(offset,limit, Sort.by("pubDate").descending());
+        if ((from==null)||(to==null))
+        {return bookRepository.findAll(nextPage);}else
+        {
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                return bookRepository.findBooksByPubDateBetween(new Date(format.parse(from).getTime()),new Date(format.parse(to).getTime()), nextPage);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return bookRepository.findAll(nextPage);
+    }
+    public Page<Book> getPageOfRecentBooksWithDates(Date from, Date to, Integer offset, Integer limit){
+        Pageable nextPage = PageRequest.of(offset,limit, Sort.by("pubDate").descending());
+        return bookRepository.findBooksByPubDateBetween(from,to, nextPage);
+    }
     public Page<Book> getPageOfSearchResultBooks(String searchWord, Integer offset, Integer limit){
         Pageable nextPage = PageRequest.of(offset,limit);
         return bookRepository.findBookByTitleContaining(searchWord,nextPage);

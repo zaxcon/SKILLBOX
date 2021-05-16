@@ -6,16 +6,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book,Integer> {
 
 //    List<Book> findBooksByAuthorFirstNameContaining(String authorFirstName);
 
+
     List<Book> findBooksByTitleContaining(String bookTitle);
 
-    List<Book> findBooksByPriceBetween(Integer min, Integer max);
+    Page<Book> findBooksByPubDateBetween(Date from, Date to, Pageable nextPage);
 
+    List<Book> findBooksByPriceBetween(Integer min, Integer max);
+    Book findBooksById(Integer id);
     List<Book> findBooksByPriceIs(Integer price);
 
     @Query("from Book where isBestseller=true")

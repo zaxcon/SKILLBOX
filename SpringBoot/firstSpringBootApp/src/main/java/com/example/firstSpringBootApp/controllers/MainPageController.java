@@ -1,12 +1,17 @@
 package com.example.firstSpringBootApp.controllers;
 
+import com.example.firstSpringBootApp.data.Book;
+import com.example.firstSpringBootApp.data.BooksPageDto;
+import com.example.firstSpringBootApp.data.SearchWordDto;
 import com.example.firstSpringBootApp.data.services.AuthorsService;
 import com.example.firstSpringBootApp.data.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.sql.Date;
+import java.util.List;
 
 
 @Controller
@@ -17,13 +22,68 @@ public class MainPageController {
     @Autowired
     private AuthorsService authorsService;
 
+    @ModelAttribute("recommendedBooksData")
+    public List<Book> recommendedBooks() {
+        return bookService.getPageOfRecommendedBooks(0, 6).getContent();
+    }
+    @ModelAttribute("popularBooksData")
+    public List<Book> popularBooksData() {
+        return bookService.getPageOfPopularBooks(0, 6).getContent();
+    }
+
+    @ModelAttribute("recentBooksData")
+    public List<Book> recentBooksData() {
+        return bookService.getPageOfRecentBooks(null,null,0, 6).getContent();
+    }
+
+    @ModelAttribute("recentBooks")
+    public List<Book> recentBooks() {
+        return bookService.getPageOfRecentBooks(null,null,0, 20).getContent();
+    }
+    @ModelAttribute("popularBooks")
+    public List<Book> popularBooks() {
+        return bookService.getPageOfRecentBooks(null,null,0, 20).getContent();
+    }
     @GetMapping("/main")
     public String mainPage(Model model)
     {
-        model.addAttribute("recommendedBooksData", bookService.getRecommendedBooksData());
-        model.addAttribute("recentBooksData", bookService.getRecentBooksData());
-        model.addAttribute("popularBooksData", bookService.getPopularBooksData());
         return "index";
+    }
+
+    @GetMapping("/books/recommended")
+    @ResponseBody
+    public BooksPageDto getBooksPage(@RequestParam("offset") Integer offset,
+                                     @RequestParam("limit") Integer limit) {
+        return new BooksPageDto(bookService.getPageOfRecommendedBooks(offset, limit).getContent());
+    }
+    @GetMapping("/books/popular")
+    @ResponseBody
+    public BooksPageDto getPopularBooksPage(@RequestParam("offset") Integer offset,
+                                     @RequestParam("limit") Integer limit) {
+        return new BooksPageDto(bookService.getPageOfPopularBooks(offset, limit).getContent());
+    }
+    @GetMapping("/books/recent")
+    @ResponseBody
+    public BooksPageDto getRecentBooksPage(@RequestParam(value = "from",required = false) String from,@RequestParam(value = "to",required = false) String to,@RequestParam("offset") Integer offset,
+                                            @RequestParam("limit") Integer limit) {
+        return new BooksPageDto(bookService.getPageOfRecentBooks(from, to, offset, limit).getContent());
+    }
+
+    @GetMapping(value = {"/search", "/search/{searchWord}"})
+    public String getSearchResults(@PathVariable(value = "searchWord", required = false) SearchWordDto searchWordDto,
+                                   Model model) {
+        model.addAttribute("searchWordDto", searchWordDto);
+        model.addAttribute("searchResults",
+                bookService.getPageOfSearchResultBooks(searchWordDto.getExample(), 0, 6).getContent());
+        return "/search/index";
+    }
+
+    @GetMapping("/search/page/{searchWord}")
+    @ResponseBody
+    public BooksPageDto getNextSearchPage(@RequestParam("offset") Integer offset,
+                                          @RequestParam("limit") Integer limit,
+                                          @PathVariable(value = "searchWord", required = false) SearchWordDto searchWordDto) {
+        return new BooksPageDto(bookService.getPageOfSearchResultBooks(searchWordDto.getExample(), offset, limit).getContent());
     }
     @GetMapping("/genres")
     public String genresPage(Model model)

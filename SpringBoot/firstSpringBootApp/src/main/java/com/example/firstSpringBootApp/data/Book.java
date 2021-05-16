@@ -39,6 +39,16 @@ public class Book {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "key.book")
     private Set<BookToAuthor> bookToAuthorSet = new HashSet<BookToAuthor>();
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "book2tag",
+            joinColumns = { @JoinColumn(name = "book_id") },
+            inverseJoinColumns = { @JoinColumn(name = "tag_id") }
+    )
+    private Set<Tag> booksTagSet = new HashSet<Tag>();
+    //private Set<BookToTag> booksTagSet = new HashSet<BookToTag>();
+
     @ApiModelProperty("book title")
     private  String title;
 
@@ -58,6 +68,14 @@ public class Book {
                 })
                 .collect(Collectors.joining(", "));
 
+    }
+    public void printTags()
+    {
+        System.out.println(this.toString());
+        for (Tag tag :booksTagSet)
+        {
+            System.out.println(tag);
+        }
     }
     @Override
     public String toString() {
