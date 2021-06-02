@@ -24,8 +24,18 @@ public class Author {
     @Column(columnDefinition = "TEXT")
     @ApiModelProperty("author description text")
     private String description;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "key.author")
-    private Set<BookToAuthor> bookToAuthorSet = new HashSet<BookToAuthor>();
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "book2author",
+            joinColumns = { @JoinColumn(name = "author_id") },
+            inverseJoinColumns = { @JoinColumn(name = "book_id") }
+    )
+    private Set<Book> booksAuthor = new HashSet<Book>();
+
+    public Set<Book> getBooksAuthor() {
+        return booksAuthor;
+    }
 
     @Override
     public String toString() {
@@ -70,6 +80,15 @@ public class Author {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPreview()
+    {
+        return getDescription().substring(0,Math.min(getDescription().length(),200));
+    }
+    public String getHide()
+    {
+        return getDescription().length()>200?getDescription().substring(201):"";
     }
 }
 

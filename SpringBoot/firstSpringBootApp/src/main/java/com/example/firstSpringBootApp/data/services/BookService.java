@@ -1,6 +1,8 @@
 package com.example.firstSpringBootApp.data.services;
 
 import com.example.firstSpringBootApp.data.Book;
+import com.example.firstSpringBootApp.data.Genre;
+import com.example.firstSpringBootApp.data.Tag;
 import com.example.firstSpringBootApp.data.repo.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.net.ContentHandler;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,9 +44,6 @@ public class BookService {
     }
     //NEW BOOK SEVICE METHODS
 
-//    public List<Book> getBooksByAuthor(String authorName){
-//        return bookRepository.findBooksByAuthorFirstNameContaining(authorName);
-//    }
 
     public List<Book> getBooksByTitle(String title){
         return bookRepository.findBooksByTitleContaining(title);
@@ -61,13 +61,15 @@ public class BookService {
         return bookRepository.getBooksWithMaxDiscount();
     }
 
+    public Page<Book> getBooksByTag(Tag tag, Integer offset, Integer limit){
+        Pageable nextPage = PageRequest.of(offset,limit);
+        return bookRepository.findBooksByBooksTagSetIsContaining(tag,nextPage);
+    }
     public List<Book> getBestsellers(){
         return bookRepository.getBestsellers();
     }
 
     public Page<Book> getPageOfRecommendedBooks(Integer offset, Integer limit){
-        Book book=bookRepository.findBooksById(1);
-        book.printTags();
         Pageable nextPage = PageRequest.of(offset,limit);
         return bookRepository.findAll(nextPage);
     }
@@ -96,5 +98,10 @@ public class BookService {
     public Page<Book> getPageOfSearchResultBooks(String searchWord, Integer offset, Integer limit){
         Pageable nextPage = PageRequest.of(offset,limit);
         return bookRepository.findBookByTitleContaining(searchWord,nextPage);
+    }
+
+    public Page<Book> getBooksByGenre(Genre genre, Integer offset, Integer limit){
+        Pageable nextPage = PageRequest.of(offset,limit);
+        return bookRepository.findBooksByBooksGenreSetContaining(genre,nextPage);
     }
 }

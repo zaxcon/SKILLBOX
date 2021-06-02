@@ -38,7 +38,7 @@
               <div th:each="element : ${authors}">
               <h2 class="Authors-title"  th:id="${element.key}" id="a"  th:text="${element.key}">A</h2>
               <div class="Authors-letter">
-                <div class="Authors-item"  th:each="author : ${element.value}"><a href="/authors/slug.html"  th:text="${author.toString()}">Абгарян Наринэ</a>
+                <div class="Authors-item"  th:each="author : ${element.value}"><a href="/authors/slug.html" th:href="@{/bookshop/books/author/{id}(id=${author.getId()})}"  th:text="${author.toString()}">Абгарян Наринэ</a>
                 </div>
               </div>
               </div>

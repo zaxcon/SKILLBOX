@@ -1,6 +1,8 @@
 package com.example.firstSpringBootApp.data.repo;
 
 import com.example.firstSpringBootApp.data.Book;
+import com.example.firstSpringBootApp.data.Genre;
+import com.example.firstSpringBootApp.data.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,4 +31,10 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     List<Book> getBooksWithMaxDiscount();
 
     Page<Book> findBookByTitleContaining(String bookTitle, Pageable nextPage);
+
+
+    Page<Book> findBooksByBooksTagSetIsContaining(Tag tag, Pageable nextPage);
+
+    Page<Book> findBooksByBooksGenreSetContaining(Genre genre, Pageable nextPage);
+    // Page<Book> findBookByTitleContaining(Tag tag, Pageable nextPage);
 }

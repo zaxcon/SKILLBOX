@@ -22,4 +22,8 @@ public class AuthorsService {
     public Map<Character, List<Author>> getAuthors() {
         return authorRepository.findAll().stream().collect(Collectors.groupingBy(c->c.getName().charAt(0)));
     }
+    public Author getAuthorById(Integer id)
+    {
+        return authorRepository.findById(id).get();
+    }
 }

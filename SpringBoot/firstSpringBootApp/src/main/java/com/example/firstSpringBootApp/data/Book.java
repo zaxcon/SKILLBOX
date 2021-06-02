@@ -34,10 +34,7 @@ public class Book {
     @ApiModelProperty("discount value for book")
     private Integer discount;
 
-    @OneToMany( mappedBy = "book")
-    private List<BookReview> bookReviewList;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "key.book")
+   @OneToMany( mappedBy = "key.book")
     private Set<BookToAuthor> bookToAuthorSet = new HashSet<BookToAuthor>();
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -47,7 +44,14 @@ public class Book {
             inverseJoinColumns = { @JoinColumn(name = "tag_id") }
     )
     private Set<Tag> booksTagSet = new HashSet<Tag>();
-    //private Set<BookToTag> booksTagSet = new HashSet<BookToTag>();
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "book2genre",
+            joinColumns = { @JoinColumn(name = "book_id") },
+            inverseJoinColumns = { @JoinColumn(name = "genre_id") }
+    )
+    private Set<Genre> booksGenreSet = new HashSet<Genre>();
 
     @ApiModelProperty("book title")
     private  String title;
@@ -67,7 +71,6 @@ public class Book {
                     return bookToAuthor.getKey().getAuthor().toString();
                 })
                 .collect(Collectors.joining(", "));
-
     }
     public void printTags()
     {
@@ -151,8 +154,6 @@ public class Book {
     public void setId(Integer id) {
         this.id = id;
     }
-
-
 
     public String getTitle() {
         return title;
